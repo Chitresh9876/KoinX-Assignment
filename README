@@ -1,2 +1,20 @@
-Setup
-" "
+Setup:
+
+1. Make a folder.
+
+2. Then go to folder and type the command:
+   "git clone https://github.com/Chitresh9876/KoinX-Assignment.git "
+   in the terminal.
+
+3. Run "npm install"
+
+4. Create a '.env' file in the root directory and add the following variables:
+   "MONGO_URI=your_mongodb_connection_string"
+   "PORT=5000"
+
+API:
+1. Upload the CSV file:
+   Send a POST request to "http://localhost:5000/api/trades/upload" with the CSV file in the form-data.
+
+2. Fetch Balance:
+   Send a POST request to "http://localhost:5000/api/trades/balance" with the JSON body containing the timestamp.
