@@ -3,13 +3,14 @@ import express from "express";
 import multer from "multer";
 import csv from "csv-parser";
 import fs from "fs";
-import Trade from "../models/Trade";
+import Trade from "../models/TradeSchema.js";
 
 
 const router = express.Router();
 
 const upload = multer({ dest: "uploads/" });
 
+// Upload the data 
 router.post("/upload", upload.single("file"), async (req, res) => {
   const filePath = req.file.path;
   const trades = [];
@@ -42,6 +43,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
 });
 
 
+//Fetch the balance
 router.post("/balance", async (req, res) => {
   const { timestamp } = req.body;
   const targetDate = new Date(timestamp);
@@ -49,13 +51,12 @@ router.post("/balance", async (req, res) => {
   try {
     const trades = await Trade.find({ utcTime: { $lte: targetDate } });
     const balances = {};
-
     trades.forEach((trade) => {
       const { baseCoin, operation, amount } = trade;
       if (!balances[baseCoin]) {
         balances[baseCoin] = 0;
       }
-      balances[baseCoin] += operation === "BUY" ? amount : -amount;
+      balances[baseCoin] += operation === "Buy" ? amount : -amount;
     });
 
     res.status(200).json(balances);

@@ -9,6 +9,6 @@ const TradeSchema = new mongoose.Schema({
   price: { type: Number, required: true },
 });
 
-const Trade = mongoose.model("TradeSchema", TradeSchema);
+const Trade = mongoose.model("Trade", TradeSchema);
 
 export default Trade;
